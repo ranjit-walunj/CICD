@@ -1,0 +1,10 @@
+# bandit.yaml
+# Configuration file for Bandit security scanner
+
+# Exclude specific directories or files (e.g., tests)
+exclude_dirs:
+  - 'tests'
+  - '.github'
+
+# You can configure specific tests here or ignore certain ones
+# skips: ['B101'] # Example: skip assert statements check if you use them outside tests
