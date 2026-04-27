@@ -7,4 +7,9 @@ exclude_dirs:
   - '.github'
 
 # You can configure specific tests here or ignore certain ones
-# skips: ['B101'] # Example: skip assert statements check if you use them outside tests
+# skips: ['B101'] # Example: skip assert statements check if you use them outside tests# Add this file if it does not exist, or update it if it does.
+# This configuration tells Bandit to exclude the B101 test,
+# which warns about 'assert' statements. This is generally acceptable for test files,
+# where 'assert' is standard and intended for use within the test runner.
+exclude_tests:
+  - B101

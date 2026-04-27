@@ -14,5 +14,8 @@ def health():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    
+    # Removed debug=True for security in non-development environments.
+    # In a production setup, debug should always be False.
+    # For development, you might use an environment variable to conditionally enable it.
+    app.run()
+
