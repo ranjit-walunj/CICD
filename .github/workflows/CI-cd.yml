@@ -89,4 +89,3 @@ jobs:
         run: |
           # Ensure the image name matches what was built in the previous job
           docker push ranjitwalunj/your-flask-app:latest
-          docker push ranjitwalunj/your-flask-app:${{ github.sha }}
