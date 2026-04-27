@@ -18,4 +18,3 @@ if __name__ == '__main__':
     # In a production setup, debug should always be False.
     # For development, you might use an environment variable to conditionally enable it.
     app.run()
-
