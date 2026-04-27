@@ -1,24 +1,31 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim-buster
+# Upgrade to Bookworm (Debian 12) to fix glibc and system library CVEs
+FROM python:3.9-slim-bookworm
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the requirements file into the container at /app
+# Upgrade core build tools to fix CVE-2024-6345 and CVE-2025-47273
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+
+# Copy requirements first to leverage Docker layer caching
 COPY requirements.txt .
 
-# Install any needed packages specified in requirements.txt
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code into the container at /app
+# Copy the rest of the application code
 COPY . .
 
-# Expose the port that the app runs on
+# Expose the Flask port
 EXPOSE 5000
 
-# Define environment variable
-ENV FLASK_APP=app.py
+# Security Best Practice: Run as a non-root user
+# Debian-based images include a 'python' or 'nobody' user by default
+USER nobody
 
-# Run the Flask application
-# Use a production-ready WSGI server like Gunicorn instead of app.run() for production
+# Define environment variables
+ENV FLASK_APP=app.py
+ENV FLASK_DEBUG=False
+
+# Run using Gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
