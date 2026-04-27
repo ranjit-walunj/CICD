@@ -1,6 +1,10 @@
 # Upgrade to Bookworm (Debian 12) to fix glibc and system library CVEs
 FROM python:3.9-slim-bookworm
 
+# Update system packages to patch OS-level vulnerabilities (e.g., openssl, libpam)
+RUN apt-get update && apt-get upgrade -y && \
+    rm -rf /var/lib/apt/lists/*
+
 # Set the working directory
 WORKDIR /app
 
