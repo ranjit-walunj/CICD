@@ -69,9 +69,9 @@ jobs:
         run: |
           # Replace 'your-username/your-flask-app' with your Docker Hub username and desired image name
           # This builds the image and tags it with 'latest'
-          docker build -t your-username/your-flask-app:latest .
+          docker build -t ranjitwalunj/your-flask-app:latest .
           # Tag with the commit SHA for unique versioning
-          docker tag your-username/your-flask-app:latest your-username/your-flask-app:${{ github.sha }}
+          docker tag ranjitwalunj/your-flask-app:latest ranjitwalunj/your-flask-app:${{ github.sha }}
 
   # New job: Push Docker image to a container registry (e.g., Docker Hub)
   push_docker_image:
@@ -87,6 +87,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }} # GitHub Secret for Docker Hub password
       - name: Push Docker images
         run: |
-          # Replace 'your-username/your-flask-app'
-          docker push your-username/your-flask-app:latest
-          docker push your-username/your-flask-app:${{ github.sha }}
+          # Ensure the image name matches what was built in the previous job
+          docker push ranjitwalunj/your-flask-app:latest
+          docker push ranjitwalunj/your-flask-app:${{ github.sha }}
