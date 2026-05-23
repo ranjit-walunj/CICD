@@ -100,4 +100,5 @@ jobs:
       - name: Trigger deployment workflow
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: gh workflow run deploy.yml --ref "${{ github.ref_name }}" -f environment=dev
