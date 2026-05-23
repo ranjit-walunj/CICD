@@ -8,16 +8,36 @@ on:
         required: true
         type: choice
         options:
+          - all
           - dev
           - stage
           - prod
-        default: dev
+        default: all
 
 jobs:
-  deploy:
+  deploy_dev:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    if: inputs.environment == 'all' || inputs.environment == 'dev'
+    environment: dev
 
     steps:
-      - name: Deploy to selected environment
-        run: echo "deployed on ${{ inputs.environment }}"
+      - name: Deploy to dev
+        run: echo "deployed on dev"
+
+  deploy_stage:
+    runs-on: ubuntu-latest
+    if: inputs.environment == 'all' || inputs.environment == 'stage'
+    environment: stage
+
+    steps:
+      - name: Deploy to stage
+        run: echo "deployed on stage"
+
+  deploy_prod:
+    runs-on: ubuntu-latest
+    if: inputs.environment == 'all' || inputs.environment == 'prod'
+    environment: prod
+
+    steps:
+      - name: Deploy to prod
+        run: echo "deployed on prod"
